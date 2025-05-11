@@ -47,6 +47,11 @@ def draw():
     screen.draw.textbox(marquee_message, marquee_box, color = "black", shadow = (0.5, 0.5), scolor = "white")
     screen.draw.textbox(str(time_left), timer_box, color = "red", shadow = (0.5, 0.5), scolor = "maroon")
     screen.draw.textbox("Skip", skip_box, color = "red", shadow = (0.5, 0.5), scolor = "dark blue", angle = 90)
+    screen.draw.textbox(q[0], question_box, color = "black", shadow = (0.5, 0.5), scolor = "white")
+    index = 1
+    for I in answer_boxes:
+        screen.draw.textbox(q[index], I, color = "orange")
+        index = index+1
 
 
 def move_text():
