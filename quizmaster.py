@@ -82,12 +82,26 @@ def read_next_question():
     random.shuffle(questions)
     q_index = q_index + 1
     return questions.pop(0).split(",")
+
+def on_mouse_down(pos):
+    index=1
+    for I in answer_boxes:
+        if I.collidepoint(pos):
+            if index is int(q[5]):
+                correct_answer()
+            else:
+                game_over()
+    if skip_box.collidepoint(pos):
+        skip_question()
+    
     
 
 read_questions()
 
 random.shuffle(questions)
 q = read_next_question()
+
+
 
 
 
