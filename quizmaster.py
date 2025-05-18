@@ -19,7 +19,10 @@ skip_box = Rect(0,0,150,350)
 questions = []
 q_count = 0
 q_index = 0
+score = 0
+game_is_over = False
 question_path = "C:/Users/pooja/Desktop/pro_game_development/lesson_11/question_bank.txt"
+
 
 
 marquee_box.move_ip(0,0)
@@ -83,6 +86,30 @@ def read_next_question():
     q_index = q_index + 1
     return questions.pop(0).split(",")
 
+def correct_answer():
+    global score, time_left, q, questions
+    score = score + 1
+    if questions:
+        q = read_next_question()
+        time_left = 10
+    else:
+        game_over()
+
+def game_over():
+    global game_is_over, time_left, q
+    over_message = "Game Over!, Your Score Was" + str(score)
+    q = [over_message, "_" , "_" , "_" , "_", 6]
+    time_left = 0
+    game_is_over = True
+
+def skip_question():
+    global q, time_left
+    if questions and game_is_over == False:
+        q = read_next_question()
+        time_left = 10
+    else:
+        game_over()
+    
 def on_mouse_down(pos):
     index=1
     for I in answer_boxes:
@@ -93,6 +120,8 @@ def on_mouse_down(pos):
                 game_over()
     if skip_box.collidepoint(pos):
         skip_question()
+
+
     
     
 
