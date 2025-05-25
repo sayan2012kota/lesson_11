@@ -19,7 +19,7 @@ skip_box = Rect(0,0,150,350)
 questions = []
 q_count = 0
 q_index = 0
-question_path = "C:/Users/pooja/Desktop/pro_game_development/lesson_11/question_bank.txt"
+q_path = "C:/Users/pooja/Desktop/pro_game_development/lesson_11/questions.txt"
 
 
 marquee_box.move_ip(0,0)
@@ -38,9 +38,9 @@ def draw():
     screen.fill(color="yellow")
     screen.draw.filled_rect(marquee_box,"yellow")
     screen.draw.filled_rect(question_box,"blue")
-    for answer_box in answer_boxes:
-        screen.draw.filled_rect(answer_box,"blue")
     screen.draw.filled_rect(timer_box,"black")
+    for I in answer_boxes:
+        screen.draw.filled_rect(I, "purple")
     screen.draw.filled_rect(skip_box,"purple")
     global marquee_message
     marquee_message = "Welcome to Quiz Master!"
@@ -71,7 +71,7 @@ def update():
 
 def read_questions():
     global questions, q_count
-    with open(question_path, "r") as file:
+    with open(q_path, "r") as file:
         for r in file:
             questions.append(r)
             q_count = q_count + 1
@@ -93,6 +93,28 @@ def on_mouse_down(pos):
                 game_over()
     if skip_box.collidepoint(pos):
         skip_question()
+
+def correct_answer():
+    global score, time_left, q, questions
+    score = score + 1
+    if questions:
+        q = read_next_question()
+        time_left = 10
+    else:
+        game_over()
+
+def game_over():
+    global game_is_over, time_left, q
+    over_message = "Game Over!, Your Score Was" + str(score)
+    q = [over_message, "_" , "_" , "_" , "_", 6]
+    time_left = 0
+    game_is_over = True
+
+def skip_question():
+    global q, time_left
+    if questions and game_is_over == False:
+        q = read_next_question()
+        time_left = 10
     
     
 
